@@ -24,6 +24,15 @@ public class Movement : MonoBehaviour
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
+        if ( x < 0 )
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if ( x > 0 )
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
         if (x == 0) {
             runTimer = 0;
         } 
