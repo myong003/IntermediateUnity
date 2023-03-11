@@ -12,11 +12,13 @@ public class Movement : MonoBehaviour
     public Rigidbody2D rb;
     public bool canJump;
     private float runTimer = 0;
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        anim = gameObject.GetComponent<Animator>();
         canJump = false;
     }
 
@@ -27,14 +29,17 @@ public class Movement : MonoBehaviour
         if ( x < 0 )
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            anim.SetBool("MarioRun", true);
         }
         else if ( x > 0 )
         {
             gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+            anim.SetBool("MarioRun", true);
         }
 
         if (x == 0) {
             runTimer = 0;
+            anim.SetBool("MarioRun", false);
         } 
         else {
             runTimer += Time.deltaTime;
@@ -53,6 +58,7 @@ public class Movement : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && canJump == true) {
+            anim.SetBool("MarioJump", true);
             rb.velocity += new Vector2(0, jumpHeight);
             canJump = false;
         }
